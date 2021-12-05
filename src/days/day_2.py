@@ -7,12 +7,12 @@ class Day2(AbstractDay):
     @staticmethod
     def one() -> int:
         course = FileUtil.file_to_list(Day2.get_file_name())
-        return Day2.NavigatorOne().navigate(course)
+        return Day2.SimpleNavigator().navigate(course)
 
     @staticmethod
     def two() -> int:
         course = FileUtil.file_to_list(Day2.get_file_name())
-        return Day2.NavigatorTwo().navigate(course)
+        return Day2.AdvanceNavigator().navigate(course)
 
     class AbstractNavigator(ABC):
         def __init__(self) -> None:
@@ -33,7 +33,7 @@ class Day2(AbstractDay):
                 getattr(self, direction)(int(x))
             return self.horiz * self.depth
 
-    class NavigatorOne(AbstractNavigator):
+    class SimpleNavigator(AbstractNavigator):
         def down(self, x: int) -> None:
             self.depth += x
         def up(self, x: int) -> None:
@@ -41,7 +41,7 @@ class Day2(AbstractDay):
         def forward(self, x: int) -> None:
             self.horiz += x
 
-    class NavigatorTwo(AbstractNavigator):
+    class AdvanceNavigator(AbstractNavigator):
         def __init__(self) -> None:
             super().__init__()
             self.aim: int = 0
