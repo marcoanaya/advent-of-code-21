@@ -1,11 +1,27 @@
-from dataclasses import dataclass
+from abc import ABC, abstractmethod
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
-@dataclass
-class PositionOne:
+
+class AbstractNavigator(ABC):
     horiz: int = 0
     depth: int = 0
+    @abstractmethod
+    def down(self, x: int) -> None:
+        pass
+    @abstractmethod
+    def up(self, x: int) -> None:
+        pass
+    @abstractmethod
+    def forward(self, x: int) -> None:
+        pass
+    def navigate(self, course: list[str]) -> int:
+        for command in course:
+            direction, x = command.split()
+            getattr(self, direction)(int(x))
+        return self.horiz * self.depth
+
+class NavigatorOne(AbstractNavigator):
     def down(self, x: int) -> None:
         self.depth += x
     def up(self, x: int) -> None:
@@ -13,10 +29,7 @@ class PositionOne:
     def forward(self, x: int) -> None:
         self.horiz += x
 
-@dataclass
-class PositionTwo:
-    horiz: int = 0
-    depth: int = 0
+class NavigatorTwo(AbstractNavigator):
     aim: int = 0
     def down(self, x: int) -> None:
         self.aim += x
@@ -30,18 +43,9 @@ class Day2(AbstractDay):
     @staticmethod
     def one() -> int:
         course = FileUtil.file_to_list(Day2.get_file_name())
-        pos = PositionOne()
-        for command in course:
-            direction, x = command.split()
-            getattr(pos, direction)(int(x))
-
-        return pos.horiz * pos.depth
+        return NavigatorOne().navigate(course)
 
     @staticmethod
     def two() -> int:
-        course: list[str] = FileUtil.file_to_list(Day2.get_file_name())
-        pos = PositionTwo()
-        for command in course:
-            direction, x = command.split()
-            getattr(pos, direction)(int(x))
-        return pos.horiz * pos.depth
+        course = FileUtil.file_to_list(Day2.get_file_name())
+        return NavigatorTwo().navigate(course)
