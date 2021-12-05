@@ -2,7 +2,7 @@
 uses python 3.10
 
 ### to run
-`python3 main.py [specifc day numbers]`
+`python3.10 main.py [specifc day numbers]`
 
 ### to create a new day
-`python3 src/util/day_util number`
+`python3.10 -m src.util.day_util number`

@@ -39,5 +39,5 @@ class Day{n}(AbstractDay):
 
 
 if __name__ == '__main__':
-    num: int = int(sys.argv[1])
+    num: int = int(sys.argv[0])
     DayUtil.new_day(num)
