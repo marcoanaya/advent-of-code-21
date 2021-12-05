@@ -15,8 +15,9 @@ class Day2(AbstractDay):
         return Day2.NavigatorTwo().navigate(course)
 
     class AbstractNavigator(ABC):
-        horiz: int = 0
-        depth: int = 0
+        def __init__(self) -> None:
+            self.horiz: int = 0
+            self.depth: int = 0
         @abstractmethod
         def down(self, x: int) -> None:
             pass
@@ -41,7 +42,9 @@ class Day2(AbstractDay):
             self.horiz += x
 
     class NavigatorTwo(AbstractNavigator):
-        aim: int = 0
+        def __init__(self) -> None:
+            super().__init__()
+            self.aim: int = 0
         def down(self, x: int) -> None:
             self.aim += x
         def up(self, x: int) -> None:
