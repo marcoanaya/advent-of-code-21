@@ -2,7 +2,7 @@ from typing import Callable, DefaultDict
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
-sign: Callable[[int], int] = lambda x: (int(x>0) * 2) -1 if x != 0 else 0
+sign: Callable[[int], int] = lambda x: int(x > 0) - int(x < 0)
 
 class Day5(AbstractDay):
     @staticmethod
