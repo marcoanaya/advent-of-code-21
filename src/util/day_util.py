@@ -9,15 +9,13 @@ import src.days
 
 for file in glob.glob("./src/days/day*.py"):
     match = re.search('./src/days/(.+?).py', file)
-    assert match is not None
-    mod = match.group(1)
-    importlib.import_module(f"src.days.{mod}")
+    if match:
+        importlib.import_module(f"src.days.{match.group(1)}")
 
 class DayUtil:
     @staticmethod
     def new_day(n: int) -> None:
         with open(f"./src/days/day_{n}.py", "w", encoding="utf-8") as f:
-
             f.write(f"""from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
@@ -30,6 +28,7 @@ class Day{n}(AbstractDay):
     def two() -> int:
         pass
 """)
+
     @staticmethod
     def get_day_classes() -> list[Type[AbstractDay]]:
         day_modules = [(name, mod) for name, mod in src.days.__dict__.items() if name.startswith('day_')]
