@@ -4,12 +4,12 @@ from ..util.file_util import FileUtil
 
 class Day4(AbstractDay):
     @staticmethod
-    def input() -> tuple[list[int], list[list[list[int]]]]:
-        return FileUtil.file_to_numbers_and_boards(Day4.get_file_name())
+    def input(file_name: str) -> tuple[list[int], list[list[list[int]]]]:
+        return FileUtil.file_to_numbers_and_boards(file_name)
 
     @staticmethod
-    def one() -> int:
-        numbers, board_rows = Day4.input()
+    def one(data: tuple[list[int], list[list[list[int]]]]) -> int:
+        numbers, board_rows = data
         boards = list(map(Day4.Board, board_rows))
         for num in numbers:
             winner = [w for w in list(b.draw(num) for b in boards) if w]
@@ -18,8 +18,8 @@ class Day4(AbstractDay):
         raise Exception('No winner exists')
 
     @staticmethod
-    def two() -> int:
-        numbers, board_rows = Day4.input()
+    def two(data: tuple[list[int], list[list[list[int]]]]) -> int:
+        numbers, board_rows = data
         boards = list(map(Day4.Board, board_rows))
         for num in numbers:
             losers = [b for b in boards if b.draw(num) == 0]

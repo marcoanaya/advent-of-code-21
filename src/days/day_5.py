@@ -7,18 +7,18 @@ sign: Callable[[int], int] = lambda x: int(x > 0) - int(x < 0)
 
 class Day5(AbstractDay):
     @staticmethod
-    def input() -> list[tuple[int, ...]]:
+    def input(file_name: str) -> list[tuple[int, ...]]:
         return FileUtil.file_to_list(
-            Day5.get_file_name(), f=lambda l: tuple(map(int, re.findall(r'\d+', l)))
+            file_name, f=lambda l: tuple(map(int, re.findall(r'\d+', l)))
         )
 
     @staticmethod
-    def one() -> int:
-        return Day5.Diagram().populate_and_find_dangerous_areas(Day5.input(), exclude_diagonal=True)
+    def one(data: list[tuple[int, ...]]) -> int:
+        return Day5.Diagram().populate_and_find_dangerous_areas(data, exclude_diagonal=True)
 
     @staticmethod
-    def two() -> int:
-        return Day5.Diagram().populate_and_find_dangerous_areas(Day5.input())
+    def two(data: list[tuple[int, ...]]) -> int:
+        return Day5.Diagram().populate_and_find_dangerous_areas(data)
 
     class Diagram:
         def __init__(self) -> None:

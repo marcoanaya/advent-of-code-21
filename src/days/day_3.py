@@ -7,22 +7,20 @@ invert_binary: Callable[[str], str] = lambda x: ''.join('0' if b == '1' else '1'
 
 class Day3(AbstractDay):
     @staticmethod
-    def input() -> list[str]:
-        return FileUtil.file_to_list(Day3.get_file_name())
+    def input(file_name: str) -> list[str]:
+        return FileUtil.file_to_list(file_name)
     @staticmethod
-    def one() -> int:
-        diagnostic = Day3.input()
-        gamma_lst = len(diagnostic[0]) * [0]
-        for d in diagnostic:
+    def one(data: list[str]) -> int:
+        gamma_lst = len(data[0]) * [0]
+        for d in data:
             for i, c in enumerate(d):
                 gamma_lst[i] += int(c)
-        gamma = ''.join(str(int(x > len(diagnostic)/2)) for x in gamma_lst)
+        gamma = ''.join(str(int(x > len(data)/2)) for x in gamma_lst)
         epsilon = invert_binary(gamma)
         return  int(gamma,2) * int(epsilon,2)
 
     @staticmethod
-    def two() -> int:
-        diagnostic = Day3.input()
+    def two(data: list[str]) -> int:
         def number_searcher(diag: list[str], most_common: bool, i:int=0) -> str:
             if len(diag) == 1:
                 return diag[0]
@@ -35,6 +33,6 @@ class Day3(AbstractDay):
             diag = list(filter(lambda x: x[i] == bit, diag))
             return number_searcher(diag, most_common, i=i+1)
 
-        oxygen_gen = number_searcher(diagnostic, True)
-        cee_oh_two = number_searcher(diagnostic, False)
+        oxygen_gen = number_searcher(data, True)
+        cee_oh_two = number_searcher(data, False)
         return int(oxygen_gen, 2) * int(cee_oh_two, 2)

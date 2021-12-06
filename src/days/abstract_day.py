@@ -7,21 +7,17 @@ class AbstractDay(ABC):
     def get_number(cls) -> int:
         return int(cls.__name__.strip("Day"))
 
-    @classmethod
-    def get_file_name(cls, file_suffix: str="") -> str:
-        return f"./src/inputs/input_{cls.get_number()}{file_suffix}.txt"
-    
     @staticmethod
     @abstractmethod
-    def input() -> Any:
+    def input(file_name: str) -> Any:
         pass
 
     @staticmethod
     @abstractmethod
-    def one() -> int:
+    def one(data: Any) -> int:
         pass
 
     @staticmethod
     @abstractmethod
-    def two() -> int:
+    def two(data: Any) -> int:
         pass

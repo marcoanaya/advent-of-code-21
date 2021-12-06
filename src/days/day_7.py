@@ -1,15 +1,16 @@
+from typing import Any
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
 class Day7(AbstractDay):
     @staticmethod
-    def input() -> list[str]:
-        return FileUtil.file_to_list(Day7.get_file_name())
+    def input(file_name: str) -> Any:
+        return FileUtil.file_to_list(file_name)
 
     @staticmethod
-    def one() -> int:
+    def one(data: Any) -> int:
         pass
 
     @staticmethod
-    def two() -> int:
+    def two(data: Any) -> int:
         pass

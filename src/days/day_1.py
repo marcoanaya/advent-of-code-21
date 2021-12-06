@@ -3,24 +3,22 @@ from ..util.file_util import FileUtil
 
 class Day1(AbstractDay):
     @staticmethod
-    def input() -> list[int]:
-        return FileUtil.file_to_list(Day1.get_file_name(), f=int)
+    def input(file_name: str) -> list[int]:
+        return FileUtil.file_to_list(file_name, f=int)
 
     @staticmethod
-    def one() -> int:
-        measurements = Day1.input()
+    def one(data: list[int]) -> int:
         return sum(
-            int(measurements[i] - measurements[i-1] > 0)
-            for i in range(1, len(measurements))
+            int(data[i] - data[i-1] > 0)
+            for i in range(1, len(data))
         )
 
     @staticmethod
-    def two() -> int:
-        measurements = Day1.input()
+    def two(data: list[int]) -> int:
         count = 0
-        for i in range(1, len(measurements) - 2):
-            first = sum(measurements[i-1:i+2])
-            second = sum(measurements[i:i+3])
+        for i in range(1, len(data) - 2):
+            first = sum(data[i-1:i+2])
+            second = sum(data[i:i+3])
             if second > first:
                 count +=1
         return count

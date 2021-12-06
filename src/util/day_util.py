@@ -7,34 +7,35 @@ from src.days.abstract_day import AbstractDay
 import src.days
 
 
-for file in glob.glob("./src/days/day*.py"):
-    match = re.search('./src/days/(.+?).py', file)
-    if match:
-        importlib.import_module(f"src.days.{match.group(1)}")
-
 class DayUtil:
     @staticmethod
     def new_day(n: int) -> None:
         with open(f"./src/days/day_{n}.py", "w", encoding="utf-8") as f:
-            f.write(f"""from .abstract_day import AbstractDay
+            f.write(f"""from typing import Any
+from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
 class Day{n}(AbstractDay):
     @staticmethod
-    def input() -> list[str]:
-        return FileUtil.file_to_list(Day{n}.get_file_name())
+    def input(file_name: str) -> Any:
+        return FileUtil.file_to_list(file_name)
 
     @staticmethod
-    def one() -> int:
+    def one(data: Any) -> int:
         pass
 
     @staticmethod
-    def two() -> int:
+    def two(data: Any) -> int:
         pass
 """)
 
     @staticmethod
-    def get_day_classes() -> list[Type[AbstractDay]]:
+    def get_days() -> list[Type[AbstractDay]]:
+        for file in glob.glob("./src/days/day*.py"):
+            match = re.search('./src/days/(.+?).py', file)
+            if match:
+                importlib.import_module(f"src.days.{match.group(1)}")
+
         day_modules = [(name, mod) for name, mod in src.days.__dict__.items() if name.startswith('day_')]
         day_modules.sort(key=lambda x: int(x[0].strip('day_')))
         day_modules = list(map(lambda x: x[1], day_modules))
@@ -43,5 +44,5 @@ class Day{n}(AbstractDay):
 
 
 if __name__ == '__main__':
-    num: int = int(sys.argv[1])
+    num = int(sys.argv[1])
     DayUtil.new_day(num)

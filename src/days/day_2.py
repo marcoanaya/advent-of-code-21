@@ -5,16 +5,16 @@ from ..util.file_util import FileUtil
 
 class Day2(AbstractDay):
     @staticmethod
-    def input() -> list[str]:
-        return FileUtil.file_to_list(Day2.get_file_name())
+    def input(file_name: str) -> list[str]:
+        return FileUtil.file_to_list(file_name)
 
     @staticmethod
-    def one() -> int:
-        return Day2.SimpleNavigator().navigate(Day2.input())
+    def one(data: list[str]) -> int:
+        return Day2.SimpleNavigator().navigate(data)
 
     @staticmethod
-    def two() -> int:
-        return Day2.AdvanceNavigator().navigate(Day2.input())
+    def two(data: list[str]) -> int:
+        return Day2.AdvanceNavigator().navigate(data)
 
     class AbstractNavigator(ABC):
         def __init__(self) -> None:

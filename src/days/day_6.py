@@ -3,16 +3,16 @@ from ..util.file_util import FileUtil
 
 class Day6(AbstractDay):
     @staticmethod
-    def input() -> list[int]:
-        return FileUtil.file_to_list(Day6.get_file_name(''), f=int, delim=',')
+    def input(file_name: str) -> list[int]:
+        return FileUtil.file_to_list(file_name, f=int, delim=',')
 
     @staticmethod
-    def one() -> int:
-        return Day6.FishTracker(Day6.input()).simulate(80)
+    def one(data: list[int]) -> int:
+        return Day6.FishTracker(data).simulate(80)
 
     @staticmethod
-    def two() -> int:
-        return Day6.FishTracker(Day6.input()).simulate(256)
+    def two(data: list[int]) -> int:
+        return Day6.FishTracker(data).simulate(256)
 
     class FishTracker:
         def __init__(self, fishes: list[int]) -> None:

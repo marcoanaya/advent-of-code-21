@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 class FileUtil:
     @staticmethod
@@ -15,8 +15,8 @@ class FileUtil:
         board_str_to_row = lambda board_str: [list(map(int,row.split())) for row in board_str.split('\n')]
         
         return numbers, list(map(board_str_to_row, board_strs))
-    
+
     @staticmethod
-    def get_file_lines(file_name: str, delim: str='\n') -> list[str]:
+    def get_file_lines(file_name: str, delim: Optional[str]=None) -> list[str]:
         with open(file_name, 'r', encoding='utf-8') as file:
-            return file.read().strip().split(delim)
+            return file.read().strip().split(delim) if delim else file.readlines()
