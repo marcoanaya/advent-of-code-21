@@ -15,16 +15,18 @@ for Day in days:
         data = Day.input(file_name)
         nums_in_file = list(map(int, re.findall(r'\d+', file_name)))
         if len(nums_in_file) > 1:
-            _, expected_one, expected_two = nums_in_file
+            expected_one = nums_in_file[1]
             print(f"  test {i}")
             actual_one = Day.one(data)
             if expected_one !=  actual_one:
                 raise Exception(f"Expected {expected_one}, got {actual_one}.")
             print(f"    {n}.1 - {actual_one}")
-            actual_two = Day.two(data)
-            if expected_two !=  actual_two:
-                raise Exception(f"Expected {expected_two}, got {actual_two}.")
-            print(f"    {n}.2 - {actual_two}")
+            if len(nums_in_file) > 2:
+                expected_two = nums_in_file[2]
+                actual_two = Day.two(data)
+                if expected_two !=  actual_two:
+                    raise Exception(f"Expected {expected_two}, got {actual_two}.")
+                print(f"    {n}.2 - {actual_two}")
         else:
             print(f"  solution")
             print(f"    {n}.1 - {Day.one(data)}")
