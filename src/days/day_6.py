@@ -1,17 +1,18 @@
-from typing import DefaultDict
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
 class Day6(AbstractDay):
     @staticmethod
+    def input() -> list[int]:
+        return FileUtil.file_to_numbers(Day6.get_file_name(''))
+
+    @staticmethod
     def one() -> int:
-        fishes = FileUtil.file_to_numbers(Day6.get_file_name(''))
-        return Day6.FishTracker(fishes).simulate(80)
+        return Day6.FishTracker(Day6.input()).simulate(80)
 
     @staticmethod
     def two() -> int:
-        fishes = FileUtil.file_to_numbers(Day6.get_file_name(''))
-        return Day6.FishTracker(fishes).simulate(256)
+        return Day6.FishTracker(Day6.input()).simulate(256)
 
     class FishTracker:
         def __init__(self, fishes: list[int]) -> None:

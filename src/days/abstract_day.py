@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any
 
 
 class AbstractDay(ABC):
@@ -10,6 +11,11 @@ class AbstractDay(ABC):
     def get_file_name(cls, file_suffix: str="") -> str:
         return f"./src/inputs/input_{cls.get_number()}{file_suffix}.txt"
     
+    @staticmethod
+    @abstractmethod
+    def input() -> Any:
+        pass
+
     @staticmethod
     @abstractmethod
     def one() -> int:

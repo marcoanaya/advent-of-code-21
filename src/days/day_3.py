@@ -7,8 +7,11 @@ invert_binary: Callable[[str], str] = lambda x: ''.join('0' if b == '1' else '1'
 
 class Day3(AbstractDay):
     @staticmethod
+    def input() -> list[str]:
+        return FileUtil.file_to_list(Day3.get_file_name())
+    @staticmethod
     def one() -> int:
-        diagnostic = FileUtil.file_to_list(Day3.get_file_name())
+        diagnostic = Day3.input()
         gamma_lst = len(diagnostic[0]) * [0]
         for d in diagnostic:
             for i, c in enumerate(d):
@@ -19,8 +22,7 @@ class Day3(AbstractDay):
 
     @staticmethod
     def two() -> int:
-        diagnostic = FileUtil.file_to_list(Day3.get_file_name())
-
+        diagnostic = Day3.input()
         def number_searcher(diag: list[str], most_common: bool, i:int=0) -> str:
             if len(diag) == 1:
                 return diag[0]

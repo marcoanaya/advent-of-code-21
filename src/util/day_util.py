@@ -21,6 +21,10 @@ from ..util.file_util import FileUtil
 
 class Day{n}(AbstractDay):
     @staticmethod
+    def input() -> list[str]:
+        return FileUtil.file_to_list(Day{n}.get_file_name())
+
+    @staticmethod
     def one() -> int:
         pass
 
@@ -39,5 +43,5 @@ class Day{n}(AbstractDay):
 
 
 if __name__ == '__main__':
-    num: int = int(sys.argv[0])
+    num: int = int(sys.argv[1])
     DayUtil.new_day(num)

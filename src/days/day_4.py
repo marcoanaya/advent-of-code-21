@@ -4,8 +4,11 @@ from ..util.file_util import FileUtil
 
 class Day4(AbstractDay):
     @staticmethod
+    def input() -> tuple[list[int], list[list[list[int]]]]:
+        return FileUtil.file_to_numbers_and_boards(Day4.get_file_name())
+    @staticmethod
     def one() -> int:
-        numbers, board_rows = FileUtil.file_to_numbers_and_boards(Day4.get_file_name())
+        numbers, board_rows = Day4.input()
         boards = list(map(Day4.Board, board_rows))
         for num in numbers:
             winner = [w for w in list(b.draw(num) for b in boards) if w]
@@ -15,7 +18,7 @@ class Day4(AbstractDay):
 
     @staticmethod
     def two() -> int:
-        numbers, board_rows = FileUtil.file_to_numbers_and_boards(Day4.get_file_name())
+        numbers, board_rows = Day4.input()
         boards = list(map(Day4.Board, board_rows))
         for num in numbers:
             losers = [b for b in boards if b.draw(num) == 0]

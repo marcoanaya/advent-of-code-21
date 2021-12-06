@@ -1,3 +1,4 @@
+import re
 from typing import Callable, DefaultDict
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
@@ -6,23 +7,27 @@ sign: Callable[[int], int] = lambda x: int(x > 0) - int(x < 0)
 
 class Day5(AbstractDay):
     @staticmethod
+    def input() -> list[tuple[int, ...]]:
+        return FileUtil.file_to_list(
+            Day5.get_file_name(), f=lambda l: tuple(map(int, re.findall(r'\d+', l)))
+        )
+
+    @staticmethod
     def one() -> int:
-        vent_lines = FileUtil.file_to_vent_lines(Day5.get_file_name())
-        return Day5.Diagram().populate_and_find_dangerous_areas(vent_lines, exclude_diagonal=True)
+        return Day5.Diagram().populate_and_find_dangerous_areas(Day5.input(), exclude_diagonal=True)
 
     @staticmethod
     def two() -> int:
-        vent_lines = FileUtil.file_to_vent_lines(Day5.get_file_name())
-        return Day5.Diagram().populate_and_find_dangerous_areas(vent_lines)
+        return Day5.Diagram().populate_and_find_dangerous_areas(Day5.input())
 
     class Diagram:
         def __init__(self) -> None:
             self.diagram: DefaultDict[tuple[int, int], int] = DefaultDict(int)
-        
+
         def populate_and_find_dangerous_areas(
-            self, vent_lines: list[tuple[tuple[int, ...], ...]], exclude_diagonal: bool=False
+            self, vent_lines: list[tuple[int, ...]], exclude_diagonal: bool=False
         ) -> int:
-            for (x1, y1), (x2, y2) in vent_lines:
+            for x1, y1, x2, y2 in vent_lines:
                 dx, dy = sign(x2-x1), sign(y2-y1)
                 if exclude_diagonal and dx and dy:
                     continue
@@ -32,7 +37,6 @@ class Day5(AbstractDay):
                     self.diagram[(x1, y1)] += 1
                     x1 += dx
                     y1 += dy
-                    dx, dy = sign(x2-x1), sign(y2-y1)
-                
+                    dx, dy = sign(x2-x1), sign(y2-y1)    
             return sum(int(val >= 2) for val in self.diagram.values())
             
