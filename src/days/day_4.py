@@ -6,6 +6,7 @@ class Day4(AbstractDay):
     @staticmethod
     def input() -> tuple[list[int], list[list[list[int]]]]:
         return FileUtil.file_to_numbers_and_boards(Day4.get_file_name())
+
     @staticmethod
     def one() -> int:
         numbers, board_rows = Day4.input()
@@ -14,7 +15,7 @@ class Day4(AbstractDay):
             winner = [w for w in list(b.draw(num) for b in boards) if w]
             if winner:
                 return winner[0]
-        return -1
+        raise Exception('No winner exists')
 
     @staticmethod
     def two() -> int:
@@ -26,7 +27,7 @@ class Day4(AbstractDay):
                 for rem_num in numbers[numbers.index(num)+1:]:
                     if losers[0].draw(rem_num):
                         return losers[0].get_score(rem_num)
-        return -1
+        raise Exception('No single loser exists')
 
     class Board:
         def __init__(self, rows: list[list[int]]):

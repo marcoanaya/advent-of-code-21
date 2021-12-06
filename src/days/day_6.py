@@ -4,7 +4,7 @@ from ..util.file_util import FileUtil
 class Day6(AbstractDay):
     @staticmethod
     def input() -> list[int]:
-        return FileUtil.file_to_numbers(Day6.get_file_name(''))
+        return FileUtil.file_to_list(Day6.get_file_name(''), f=int, delim=',')
 
     @staticmethod
     def one() -> int:

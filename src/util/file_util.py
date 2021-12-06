@@ -1,10 +1,11 @@
 from typing import Any, Callable
-import re
 
 class FileUtil:
     @staticmethod
-    def file_to_list(file_name: str, f: Callable[[str], Any]=lambda x: x) -> list[Any]:
-        return [f(line.rstrip()) for line in FileUtil.get_file_lines(file_name)]
+    def file_to_list(
+        file_name: str, f: Callable[[str], Any]=lambda x: x, delim: str='\n'
+    ) -> list[Any]:
+        return [f(line.rstrip()) for line in FileUtil.get_file_lines(file_name, delim)]
 
     @staticmethod
     def file_to_numbers_and_boards(file_name: str) -> tuple[list[int], list[list[list[int]]]]:
@@ -16,11 +17,6 @@ class FileUtil:
         return numbers, list(map(board_str_to_row, board_strs))
     
     @staticmethod
-    def file_to_numbers(file_name: str) -> list[int]:
-        lines = FileUtil.get_file_lines(file_name)
-        return list(map(int,lines[0].rstrip().split(',')))
-    
-    @staticmethod
-    def get_file_lines(file_name: str) -> list[str]:
+    def get_file_lines(file_name: str, delim: str='\n') -> list[str]:
         with open(file_name, 'r', encoding='utf-8') as file:
-            return file.readlines()
+            return file.read().strip().split(delim)
