@@ -1,10 +1,10 @@
-from typing import Callable
-
+from typing import Any, Callable
+import re
 
 class FileUtil:
     @staticmethod
-    def file_to_list(file_name: str) -> list[str]:
-        return [line.rstrip() for line in  FileUtil.get_file_lines(file_name)]
+    def file_to_list(file_name: str, f: Callable[[str], Any]=lambda x: x) -> list[Any]:
+        return [f(line.rstrip()) for line in  FileUtil.get_file_lines(file_name)]
 
     @staticmethod
     def file_to_numbers_and_boards(file_name: str) -> tuple[list[int], list[list[list[int]]]]:
@@ -16,12 +16,16 @@ class FileUtil:
         return numbers, list(map(board_str_to_row, board_strs))
 
     @staticmethod
-    def file_to_vent_lines(file_name: str) -> list[tuple[tuple[int, ...], ...]]:
+    def file_to_vent_lines(file_name: str) -> list[tuple[int, ...]]:
         lines = FileUtil.get_file_lines(file_name)
-        line_to_vent_line: Callable[[str], tuple[tuple[int, ...], ...]] = \
-            lambda l: tuple(map(lambda p: tuple(map(int, p.split(','))), l.split(' -> ')))
+        line_to_vent_line: Callable[[str], tuple[int, ...]] = lambda l: tuple(map(int, re.findall(r'\d+', l)))
         vent_lines = list(map(line_to_vent_line, lines))
         return vent_lines
+    
+    @staticmethod
+    def file_to_numbers(file_name: str) -> list[int]:
+        lines = FileUtil.get_file_lines(file_name)
+        return list(map(int,lines[0].rstrip().split(',')))
     
     @staticmethod
     def get_file_lines(file_name: str) -> list[str]:
