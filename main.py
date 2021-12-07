@@ -14,19 +14,15 @@ for Day in days:
     for i, file_name in enumerate(sorted((f for f in glob(f"./src/inputs/input_{n}*.txt")), reverse=True), 1):
         data = Day.input(file_name)
         nums_in_file = list(map(int, re.findall(r'\d+', file_name)))
-        if len(nums_in_file) > 1:
-            expected_one = nums_in_file[1]
+        expecteds = nums_in_file[1:]
+        if expecteds:
             print(f"  test {i}")
-            actual_one = Day.one(data)
-            if expected_one !=  actual_one:
-                raise Exception(f"Expected {expected_one}, got {actual_one}.")
-            print(f"    {n}.1 - {actual_one}")
-            if len(nums_in_file) > 2:
-                expected_two = nums_in_file[2]
-                actual_two = Day.two(data)
-                if expected_two !=  actual_two:
-                    raise Exception(f"Expected {expected_two}, got {actual_two}.")
-                print(f"    {n}.2 - {actual_two}")
+            for j, (expected, sol) in enumerate(zip(expecteds, [Day.one, Day.two]), 1):
+                actual = sol(data)
+                if expected !=  actual:
+                    print(f"    {n}.{j} - Expected {expected}, got {actual}.")
+                    exit(0)
+                print(f"    {n}.{j} - {actual}")
         else:
             print("  solution")
             print(f"    {n}.1 - {Day.one(data)}")
