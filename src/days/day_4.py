@@ -2,13 +2,25 @@ from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
 
+BoardRows = list[list[int]]
+
 class Day4(AbstractDay):
     @staticmethod
-    def input(file_name: str) -> tuple[list[int], list[list[list[int]]]]:
-        return FileUtil.file_to_numbers_and_boards(file_name)
+    def input(file_name: str) -> tuple[list[int], list[BoardRows]]:
+        num_str, *board_strs = FileUtil.get_file_lines(file_name)
+        return (
+            list(map(int, num_str.rstrip().split(','))),
+            list(map(
+                lambda board: list(map(
+                    lambda row: list(map(int, row.split())),
+                    board.split('\n')
+                )),
+                ''.join(board_strs).strip().split('\n\n')
+            ))
+        )
 
     @staticmethod
-    def one(data: tuple[list[int], list[list[list[int]]]]) -> int:
+    def one(data: tuple[list[int], list[BoardRows]]) -> int:
         numbers, board_rows = data
         boards = list(map(Day4.Board, board_rows))
         for num in numbers:
@@ -18,7 +30,7 @@ class Day4(AbstractDay):
         raise Exception('No winner exists')
 
     @staticmethod
-    def two(data: tuple[list[int], list[list[list[int]]]]) -> int:
+    def two(data: tuple[list[int], list[BoardRows]]) -> int:
         numbers, board_rows = data
         boards = list(map(Day4.Board, board_rows))
         for num in numbers:
@@ -30,7 +42,7 @@ class Day4(AbstractDay):
         raise Exception('No single loser exists')
 
     class Board:
-        def __init__(self, rows: list[list[int]]):
+        def __init__(self, rows: BoardRows):
             self.options = rows + list(map(list, zip(*rows)))
             self.sum = sum(sum(row) for row in rows)
             self.left = len(self.options) * [5]

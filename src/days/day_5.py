@@ -3,21 +3,23 @@ from typing import Callable, DefaultDict
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
+
+VentLine = list[int]
 sign: Callable[[int], int] = lambda x: int(x > 0) - int(x < 0)
 
 class Day5(AbstractDay):
     @staticmethod
-    def input(file_name: str) -> list[tuple[int, ...]]:
+    def input(file_name: str) -> list[VentLine]:
         return FileUtil.file_to_list(
-            file_name, f=lambda l: tuple(map(int, re.findall(r'\d+', l)))
+            file_name, f=lambda l: list(map(int, re.findall(r'\d+', l)))
         )
 
     @staticmethod
-    def one(data: list[tuple[int, ...]]) -> int:
+    def one(data: list[VentLine]) -> int:
         return Day5.Diagram().populate_and_find_dangerous_areas(data, exclude_diagonal=True)
 
     @staticmethod
-    def two(data: list[tuple[int, ...]]) -> int:
+    def two(data: list[VentLine]) -> int:
         return Day5.Diagram().populate_and_find_dangerous_areas(data)
 
     class Diagram:
@@ -25,7 +27,7 @@ class Day5(AbstractDay):
             self.diagram: DefaultDict[tuple[int, int], int] = DefaultDict(int)
 
         def populate_and_find_dangerous_areas(
-            self, vent_lines: list[tuple[int, ...]], exclude_diagonal: bool=False
+            self, vent_lines: list[VentLine], exclude_diagonal: bool=False
         ) -> int:
             for x1, y1, x2, y2 in vent_lines:
                 dx, dy = sign(x2-x1), sign(y2-y1)
