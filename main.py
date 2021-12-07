@@ -28,6 +28,6 @@ for Day in days:
                     raise Exception(f"Expected {expected_two}, got {actual_two}.")
                 print(f"    {n}.2 - {actual_two}")
         else:
-            print(f"  solution")
+            print("  solution")
             print(f"    {n}.1 - {Day.one(data)}")
             print(f"    {n}.2 - {Day.two(data)}")
