@@ -1,4 +1,4 @@
-from typing import Callable, NewType, Type
+from typing import Callable
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
