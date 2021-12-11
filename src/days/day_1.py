@@ -1,4 +1,3 @@
-from functools import reduce
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
