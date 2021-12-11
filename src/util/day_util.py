@@ -16,16 +16,16 @@ from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
 class Day{n}(AbstractDay):
-    @staticmethod
-    def input(file_name: str) -> Any:
+    @classmethod
+    def input(cls, file_name: str) -> Any:
         return FileUtil.file_to_list(file_name)
 
-    @staticmethod
-    def one(data: Any) -> int:
+    @classmethod
+    def one(cls, data: Any) -> int:
         pass
 
-    @staticmethod
-    def two(data: Any) -> int:
+    @classmethod
+    def two(cls, data: Any) -> int:
         pass
 """)
 
