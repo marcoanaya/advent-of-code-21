@@ -10,7 +10,7 @@ class Day1(AbstractDay):
     @classmethod
     def one(cls, data: list[int]) -> int:
         return sum(
-            int(data[i] - data[i-1] > 0)
+            int(data[i-1] < data[i])
             for i in range(1, len(data))
         )
 
