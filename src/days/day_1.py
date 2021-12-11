@@ -1,3 +1,4 @@
+from functools import reduce
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
@@ -15,10 +16,7 @@ class Day1(AbstractDay):
 
     @classmethod
     def two(cls, data: list[int]) -> int:
-        count = 0
-        for i in range(1, len(data) - 2):
-            first = sum(data[i-1:i+2])
-            second = sum(data[i:i+3])
-            if second > first:
-                count +=1
-        return count
+        return reduce(
+            lambda count, i: count + int(sum(data[i-1:i+2]) < sum(data[i:i+3])),
+            range(1, len(data) - 2)
+        )
