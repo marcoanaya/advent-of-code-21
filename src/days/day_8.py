@@ -2,24 +2,25 @@ from typing import Callable, FrozenSet
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
+Input = list[tuple[list[str], list[str]]]
 IsDigit = Callable[[FrozenSet], bool]
 IsDigitMaker = Callable[[IsDigit, IsDigit], IsDigit]
 
 class Day8(AbstractDay):
     @staticmethod
-    def input(file_name: str) -> list[tuple[list[str], list[str]]]:
+    def input(file_name: str) -> Input:
         digits = [d.strip().split() for d in FileUtil.file_to_list(file_name, delim='\n')]
         return [(d[:10], d[11:]) for d in digits]
 
     @staticmethod
-    def one(data: list[tuple[list[str], list[str]]]) -> int:
+    def one(data: Input) -> int:
         count = 0
         for _, right in data:
             count += sum(1 for s in right if len(s) in [2,3,4,7])
         return count
 
     @staticmethod
-    def two(data: list[tuple[list[str], list[str]]]) -> int:
+    def two(data: Input) -> int:
         count = 0
         for left, right in data:
             options = sorted((frozenset(c) for c in left), key=len)
