@@ -1,7 +1,7 @@
 from glob import glob
 import re
 import sys
-from copy import copy, deepcopy
+from copy import deepcopy
 from src.util.day_util import DayUtil
 
 days = DayUtil.get_days()

@@ -2,37 +2,33 @@ from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
 
-BoardRows = list[list[int]]
-
 class Day4(AbstractDay):
-    @staticmethod
-    def input(file_name: str) -> tuple[list[int], list[BoardRows]]:
+    @classmethod
+    def input(cls, file_name: str) -> tuple[list[int], list['Day4.Board']]:
         num_str, *board_strs = FileUtil.get_file_lines(file_name)
         return (
             list(map(int, num_str.rstrip().split(','))),
             list(map(
-                lambda board: list(map(
+                lambda board: cls.Board(list(map(
                     lambda row: list(map(int, row.split())),
                     board.split('\n')
-                )),
+                ))),
                 ''.join(board_strs).strip().split('\n\n')
             ))
         )
 
-    @staticmethod
-    def one(data: tuple[list[int], list[BoardRows]]) -> int:
-        numbers, board_rows = data
-        boards = list(map(Day4.Board, board_rows))
+    @classmethod
+    def one(cls, data: tuple[list[int], list['Day4.Board']]) -> int:
+        numbers, boards = data
         for num in numbers:
             winner = [w for w in list(b.draw(num) for b in boards) if w]
             if winner:
                 return winner[0]
         raise Exception('No winner exists')
 
-    @staticmethod
-    def two(data: tuple[list[int], list[BoardRows]]) -> int:
-        numbers, board_rows = data
-        boards = list(map(Day4.Board, board_rows))
+    @classmethod
+    def two(cls, data: tuple[list[int], list['Day4.Board']]) -> int:
+        numbers, boards = data
         for num in numbers:
             losers = [b for b in boards if b.draw(num) == 0]
             if len(losers) == 1:
@@ -42,7 +38,7 @@ class Day4(AbstractDay):
         raise Exception('No single loser exists')
 
     class Board:
-        def __init__(self, rows: BoardRows):
+        def __init__(self, rows: list[list[int]]):
             self.options = rows + list(map(list, zip(*rows)))
             self.sum = sum(sum(row) for row in rows)
             self.left = len(self.options) * [5]

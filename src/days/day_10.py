@@ -6,29 +6,29 @@ from ..util.file_util import FileUtil
 class Day10(AbstractDay):
     char_map = {')': '(', ']': '[', '}': '{', '>': '<'}
 
-    @staticmethod
-    def input(file_name: str) -> list[list[str]]:
+    @classmethod
+    def input(cls, file_name: str) -> list[list[str]]:
         return FileUtil.file_to_list(file_name, f=list)
 
-    @staticmethod
-    def one(data: list[list[str]]) -> int:
-         return Day10.helper(data)[0]
+    @classmethod
+    def one(cls, data: list[list[str]]) -> int:
+        return cls.helper(data)[0]
 
-    @staticmethod
-    def two(data: list[list[str]]) -> int:
-        return Day10.helper(data)[1]
-    
-    @staticmethod
-    def helper(data: list[list[str]]) -> tuple[int, int]:
-        illegal_score = Day10.IllegalScore()
-        autocomplete_score = Day10.AutocompleteScore()
+    @classmethod
+    def two(cls, data: list[list[str]]) -> int:
+        return cls.helper(data)[1]
+
+    @classmethod
+    def helper(cls, data: list[list[str]]) -> tuple[int, int]:
+        illegal_score = cls.IllegalScore()
+        autocomplete_score = cls.AutocompleteScore()
         for line in data:
             stack = []
             for c in line:
-                if c not in Day10.char_map:
+                if c not in cls.char_map:
                     stack.append(c)
                 else:
-                    if stack[-1] != Day10.char_map[c]:
+                    if stack[-1] != cls.char_map[c]:
                         illegal_score[c] += 1
                         break
                     else:

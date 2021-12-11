@@ -8,10 +8,10 @@ class Grid(list):
         for i in range(len(self)):
             for j in range(len(self[0])):
                 self[i][j] = f(self[i][j])
-    
+
     def neighbormap(self, i: int, j: int, f: Callable[[int, int], Any]) -> Generator[Any, None, None]:
         yield from (f(n, m) for n,m in self.get_directions(i, j) if self.is_inbounds(n, m))
-    
+
     def flatmap(
         self, f: Callable[[int, int], Any], cond: Callable[[int, int], bool]=lambda i, j: True
     ) -> Generator[Any, None, None]:
@@ -22,6 +22,6 @@ class Grid(list):
 
     def is_inbounds(self, i: int, j: int) -> bool:
         return 0 <= i < len(self) and 0 <= j < len(self[0])
-    
+
     def __str__(self) -> str:
         return '\n'.join(','.join(map(str, r)) for r in self)

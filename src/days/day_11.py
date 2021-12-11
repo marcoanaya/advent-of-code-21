@@ -1,22 +1,22 @@
-from typing import Any, Callable, Generator
+from typing import Any, Callable
 
 from src.util.grid import Grid
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
 class Day11(AbstractDay):
-    @staticmethod
-    def input(file_name: str) -> Any:
+    @classmethod
+    def input(cls, file_name: str) -> Any:
         return Day11.Octopi(FileUtil.file_to_list(file_name, f=lambda x: list(map(int, x))))
 
-    @staticmethod
-    def one(data: 'Day11.Octopi') -> int:
+    @classmethod
+    def one(cls, data: 'Day11.Octopi') -> int:
         return data.simulate()[0]
 
-    @staticmethod
-    def two(data: 'Day11.Octopi') -> int:
+    @classmethod
+    def two(cls, data: 'Day11.Octopi') -> int:
         return data.simulate(cond=lambda _: any(data.flatmap(lambda i, j: data[i][j])))[1]
-    
+
     class Octopi(Grid):
         def simulate(self, cond: Callable[[int], bool]=lambda c: c < 100) -> tuple[int, int]:
             count, flashes = 0, 0

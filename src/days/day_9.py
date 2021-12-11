@@ -1,20 +1,19 @@
 import math
-from typing import Any, Callable, Generator
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 from ..util.grid import Grid
 
 class Day9(AbstractDay):
-    @staticmethod
-    def input(file_name: str) -> 'Day9.HeightMap':
+    @classmethod
+    def input(cls, file_name: str) -> 'Day9.HeightMap':
         return Day9.HeightMap(FileUtil.file_to_list(file_name, f=lambda x: list(map(int, x))))
 
-    @staticmethod
-    def one(data: 'Day9.HeightMap') -> int:
+    @classmethod
+    def one(cls, data: 'Day9.HeightMap') -> int:
         return sum(data.flatmap(lambda i, j: data[i][j] + 1, cond=data.is_low_point))
 
-    @staticmethod
-    def two(data: 'Day9.HeightMap') -> int:
+    @classmethod
+    def two(cls, data: 'Day9.HeightMap') -> int:
         seen: set[tuple[int, int]] = set()
         return math.prod(sorted(data.flatmap(lambda i, j: data.search_basin(i, j, seen)))[-3:])
 

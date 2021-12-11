@@ -8,19 +8,19 @@ VentLine = list[int]
 sign: Callable[[int], int] = lambda x: int(x > 0) - int(x < 0)
 
 class Day5(AbstractDay):
-    @staticmethod
-    def input(file_name: str) -> list[VentLine]:
+    @classmethod
+    def input(cls, file_name: str) -> list[VentLine]:
         return FileUtil.file_to_list(
             file_name, f=lambda l: list(map(int, re.findall(r'\d+', l)))
         )
 
-    @staticmethod
-    def one(data: list[VentLine]) -> int:
-        return Day5.Diagram().populate_and_find_dangerous_areas(data, exclude_diagonal=True)
+    @classmethod
+    def one(cls, data: list[VentLine]) -> int:
+        return cls.Diagram().populate_and_find_dangerous_areas(data, exclude_diagonal=True)
 
-    @staticmethod
-    def two(data: list[VentLine]) -> int:
-        return Day5.Diagram().populate_and_find_dangerous_areas(data)
+    @classmethod
+    def two(cls, data: list[VentLine]) -> int:
+        return cls.Diagram().populate_and_find_dangerous_areas(data)
 
     class Diagram:
         def __init__(self) -> None:
@@ -39,6 +39,6 @@ class Day5(AbstractDay):
                     self.diagram[(x1, y1)] += 1
                     x1 += dx
                     y1 += dy
-                    dx, dy = sign(x2-x1), sign(y2-y1)    
+                    dx, dy = sign(x2-x1), sign(y2-y1)
             return sum(int(val >= 2) for val in self.diagram.values())
             

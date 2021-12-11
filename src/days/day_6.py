@@ -2,17 +2,17 @@ from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
 class Day6(AbstractDay):
-    @staticmethod
-    def input(file_name: str) -> list[int]:
+    @classmethod
+    def input(cls, file_name: str) -> list[int]:
         return FileUtil.file_to_list(file_name, f=int, delim=',')
 
-    @staticmethod
-    def one(data: list[int]) -> int:
-        return Day6.FishTracker(data).simulate(80)
+    @classmethod
+    def one(cls, data: list[int]) -> int:
+        return cls.FishTracker(data).simulate(80)
 
-    @staticmethod
-    def two(data: list[int]) -> int:
-        return Day6.FishTracker(data).simulate(256)
+    @classmethod
+    def two(cls, data: list[int]) -> int:
+        return cls.FishTracker(data).simulate(256)
 
     class FishTracker:
         def __init__(self, fishes: list[int]) -> None:

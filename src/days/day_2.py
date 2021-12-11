@@ -4,17 +4,17 @@ from ..util.file_util import FileUtil
 
 
 class Day2(AbstractDay):
-    @staticmethod
-    def input(file_name: str) -> list[str]:
+    @classmethod
+    def input(cls, file_name: str) -> list[str]:
         return FileUtil.file_to_list(file_name)
 
-    @staticmethod
-    def one(data: list[str]) -> int:
-        return Day2.SimpleNavigator().navigate(data)
+    @classmethod
+    def one(cls, course: list[str]) -> int:
+        return cls.SimpleNavigator().navigate(course)
 
-    @staticmethod
-    def two(data: list[str]) -> int:
-        return Day2.AdvanceNavigator().navigate(data)
+    @classmethod
+    def two(cls, course: list[str]) -> int:
+        return cls.AdvanceNavigator().navigate(course)
 
     class AbstractNavigator(ABC):
         def __init__(self) -> None:

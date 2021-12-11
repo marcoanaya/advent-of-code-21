@@ -6,11 +6,12 @@ from ..util.file_util import FileUtil
 invert_binary: Callable[[str], str] = lambda x: ''.join('0' if b == '1' else '1' for b in list(x))
 
 class Day3(AbstractDay):
-    @staticmethod
-    def input(file_name: str) -> list[str]:
+    @classmethod
+    def input(cls, file_name: str) -> list[str]:
         return FileUtil.file_to_list(file_name)
-    @staticmethod
-    def one(data: list[str]) -> int:
+
+    @classmethod
+    def one(cls, data: list[str]) -> int:
         gamma_lst = len(data[0]) * [0]
         for d in data:
             for i, c in enumerate(d):
@@ -19,8 +20,8 @@ class Day3(AbstractDay):
         epsilon = invert_binary(gamma)
         return  int(gamma,2) * int(epsilon,2)
 
-    @staticmethod
-    def two(data: list[str]) -> int:
+    @classmethod
+    def two(cls, data: list[str]) -> int:
         def number_searcher(diag: list[str], most_common: bool, i:int=0) -> str:
             if len(diag) == 1:
                 return diag[0]
