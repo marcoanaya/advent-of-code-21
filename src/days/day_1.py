@@ -16,7 +16,7 @@ class Day1(AbstractDay):
 
     @classmethod
     def two(cls, data: list[int]) -> int:
-        return reduce(
-            lambda count, i: count + int(sum(data[i-1:i+2]) < sum(data[i:i+3])),
-            range(1, len(data) - 2)
+        return sum(
+            int(sum(data[i-1:i+2]) < sum(data[i:i+3]))
+            for i in range(1, len(data) - 2)
         )
