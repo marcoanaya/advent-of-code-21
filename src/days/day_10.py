@@ -36,7 +36,7 @@ class Day10(AbstractDay):
             else:
                 autocomplete_score.append(stack)
         return illegal_score.calculate(), autocomplete_score.calculate()
-    
+
     class IllegalScore(dict):
         map = {')': 3, ']': 57, '}': 1197, '>': 25137}
         def __init__(self) -> None:
@@ -47,7 +47,6 @@ class Day10(AbstractDay):
 
     class AutocompleteScore(list):
         map = {'(': 1, '[': 2, '{': 3, '<': 4}
-
         def append(self, stack: Any) -> None:
             score = reduce(lambda score, c: (score * 5) + self.map[c], stack[::-1], 0)
             super().append(score)
