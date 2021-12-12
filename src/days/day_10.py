@@ -31,8 +31,7 @@ class Day10(AbstractDay):
                     if stack[-1] != cls.char_map[c]:
                         illegal_score[c] += 1
                         break
-                    else:
-                        stack.pop()
+                    stack.pop()
             else:
                 autocomplete_score.append(stack)
         return illegal_score.calculate(), autocomplete_score.calculate()
@@ -41,7 +40,6 @@ class Day10(AbstractDay):
         map = {')': 3, ']': 57, '}': 1197, '>': 25137}
         def __init__(self) -> None:
             super().__init__({k: 0 for k in self.map})
-
         def calculate(self) -> int:
             return sum(self[k] * m for k, m in self.map.items())
 

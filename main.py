@@ -12,7 +12,7 @@ if requested := list(map(int, sys.argv[1:])):
 for Day in days:
     print(Day.__name__)
     n = Day.get_number()
-    for i, file_name in enumerate(sorted((f for f in glob(f"./src/inputs/input_{n}_*.txt")), reverse=True), 1):
+    for i, file_name in enumerate(sorted((f for f in glob(f"./src/inputs/input_{n}_*.txt"))), 1):
         data = Day.input(file_name)
         nums_in_file = list(map(int, re.findall(r'\d+', file_name)))
         expecteds = nums_in_file[1:]
