@@ -17,7 +17,8 @@ class Grid(list):
     ) -> Generator[Any, None, None]:
         yield from (f(i, j) for i in range(len(self)) for j in range(len(self[0])) if cond(i, j))
 
-    def get_directions(self, i: int, j: int) -> list[tuple[int, int]]:
+    @staticmethod
+    def get_directions(i: int, j: int) -> list[tuple[int, int]]:
         return [(n, m) for m in range(j-1, j+2) for n in range(i-1, i+2) if (n != i or m != j)]
 
     def is_inbounds(self, i: int, j: int) -> bool:

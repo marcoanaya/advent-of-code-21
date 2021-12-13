@@ -27,5 +27,6 @@ class Day9(AbstractDay):
             seen.add((i, j))
             return 1 + sum(self.neighbormap(i, j, lambda n, m: self.search_basin(n, m, seen)))
 
-        def get_directions(self, i: int, j: int) -> list[tuple[int, int]]:
+        @staticmethod
+        def get_directions(i: int, j: int) -> list[tuple[int, int]]:
             return [(i-1, j), (i, j-1), (i+1, j), (i, j+1)]
