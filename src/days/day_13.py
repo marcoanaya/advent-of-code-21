@@ -14,7 +14,7 @@ class Day13(AbstractDay):
             elif line:
                 a, n = line[11:].split('=')
                 instructions.append((Day13.Axis[a], int(n)))
-        return cls.Paper(points), [(l[0], int(l[1]))for l in instructions]
+        return cls.Paper(points), instructions
 
     @classmethod
     def one(cls, data: Any) -> int:
