@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from typing import Any
 from enum import Enum
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil

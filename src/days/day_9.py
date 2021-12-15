@@ -19,14 +19,10 @@ class Day9(AbstractDay):
 
     class HeightMap(Grid):
         def is_low_point(self, i: int, j: int) -> bool:
-            return all(self.neighbormap(i, j, lambda n, m: self[n][m] > self[i][j]))
+            return all(self.neighbormap(i, j, lambda n, m: self[n][m] > self[i][j], diag=False))
 
         def search_basin(self, i: int, j: int, seen: set[tuple[int, int]]) -> int:
             if self[i][j] == 9 or (i, j) in seen:
                 return 0
             seen.add((i, j))
-            return 1 + sum(self.neighbormap(i, j, lambda n, m: self.search_basin(n, m, seen)))
-
-        @staticmethod
-        def get_directions(i: int, j: int) -> list[tuple[int, int]]:
-            return [(i-1, j), (i, j-1), (i+1, j), (i, j+1)]
+            return 1 + sum(self.neighbormap(i, j, lambda n, m: self.search_basin(n, m, seen), diag=False))
