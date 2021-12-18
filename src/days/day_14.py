@@ -1,10 +1,10 @@
-from typing import Any, Counter
+from typing import Counter
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
 class Day14(AbstractDay):
     @classmethod
-    def input(cls, file_name: str) -> Any:
+    def input(cls, file_name: str) -> 'Day14.Polymer':
         lines = FileUtil.get_file_lines(file_name, delim='\n')
         template = lines[0]
         insertion_rules = [c.split(' -> ') for c in lines[2:]]
@@ -42,7 +42,7 @@ class Day14(AbstractDay):
                 self.template = t
 
         def most_sub_least(self) -> int:
-            (_, most), *_, (_, least) = Counter(self.count).most_common()
+            (_, most), *_, (_, least) = self.count.most_common()
             return most - least
 
         def __str__(self) -> str:

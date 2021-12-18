@@ -10,6 +10,7 @@ class Day15(AbstractDay):
     @classmethod
     def one(cls, cavern: 'Day15.Cavern') -> int:
         return cavern.shortest_path()
+
     @classmethod
     def two(cls, cavern: 'Day15.Cavern') -> int:
         big_cavern = cavern.scale(5)

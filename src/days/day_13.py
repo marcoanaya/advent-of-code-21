@@ -1,11 +1,12 @@
-from typing import Any
 from enum import Enum
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 
+Input = tuple['Day13.Paper', list[tuple['Day13.Axis', int]]]
+
 class Day13(AbstractDay):
     @classmethod
-    def input(cls, file_name: str) -> Any:
+    def input(cls, file_name: str) -> Input:
         points = []
         instructions: list[tuple['Day13.Axis', int]] = []
         for line in FileUtil.get_file_lines(file_name, delim='\n'):
@@ -17,13 +18,13 @@ class Day13(AbstractDay):
         return cls.Paper(points), instructions
 
     @classmethod
-    def one(cls, data: Any) -> int:
+    def one(cls, data: Input) -> int:
         paper, [(axis, n), *_] = data
         paper.fold(axis, n)
         return len(paper.points)
 
     @classmethod
-    def two(cls, data: Any) -> int:
+    def two(cls, data: Input) -> int:
         paper, instructions = data
         for axis, n in instructions:
             paper.fold(axis, n)

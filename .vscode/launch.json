@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "program": "/home/marco/projects/other/aoc/main.py",
-            "args": ["15"],
+            "args": ["18"],
             "console": "integratedTerminal"
         }
     ]
