@@ -1,9 +1,9 @@
 import re
 import math
-import numpy as np
-from numpy.typing import NDArray
 from typing import Generator, Optional
 from itertools import combinations
+import numpy as np
+from numpy.typing import NDArray
 from .abstract_day import AbstractDay
 from ..util.file_util import FileUtil
 from ..util.misc import unwrap
