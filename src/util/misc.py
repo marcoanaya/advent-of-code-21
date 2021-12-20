@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional, TypeVar
 
 @dataclass
 class Index:
@@ -10,3 +11,8 @@ class Index:
         return self.i
     def __str__(self) -> str:
         return f"Index({self.i})"
+
+T = TypeVar('T')
+def unwrap(x: Optional['T']) ->  'T':
+    assert x is not None
+    return x

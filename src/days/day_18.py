@@ -44,20 +44,16 @@ class SnailNumber:
     def __str__(self) -> str:
         def f(a: 'SnailNumber', i:int=1) -> str:
             if hasattr(a, 'x'):
-                return f"<{self.x}>"
+                return f"<{a.x}>"
             return f"{i}[{f(a.left, i+1)},{f(a.right, i+1)}]"
         return f(self)
     __repr__ = __str__
 
     def split(self) -> 'SnailNumber':
-        if hasattr(self, 'left'):
-            raise Exception('cannot split pair')
         left, right = math.floor(self.x / 2), math.ceil(self.x / 2)
         return SnailNumber([SnailNumber(left), SnailNumber(right)])
 
     def explode(self, left: Optional['SnailNumber'], right: Optional['SnailNumber']) -> 'SnailNumber':
-        if hasattr(self, 'x'):
-            raise Exception('cannot explode non-pair')
         if left:
             left += self.left
         if right:
@@ -68,8 +64,7 @@ class SnailNumber:
         return hasattr(self, 'left') and hasattr(self.left, 'x') and hasattr(self.right, 'x')
 
 class Reducer:
-    Item = tuple[SnailNumber, str, int]
-    stack = Deque['Reducer.Item']()
+    stack = Deque[tuple[SnailNumber, str, int]]()
     left: Optional['SnailNumber'] = None
     @staticmethod
     def reduce(snum: 'SnailNumber') -> 'SnailNumber':
