@@ -22,7 +22,7 @@ class Day20(AbstractDay):
         return img.count_lit_pixels()
 
 class Image(list):
-    def __init__(self, img: list[str], fill: str='.', margin=2) -> None:
+    def __init__(self, img: list[str], fill: str='.', margin: int=2) -> None:
         empty_rows = [fill * (len(img[0]) + (2*margin)) for _ in range(margin)]
         super().__init__([
             *empty_rows,
